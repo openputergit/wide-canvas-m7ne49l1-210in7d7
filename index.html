@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Divine Mantras</title>
+    <script src="https://unpkg.com/howler@2.2.3/dist/howler.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .neu-brutal {
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            transition: all 0.2s ease;
+        }
+        .neu-brutal:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px #000;
+        }
+        .neu-brutal:active {
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0px #000;
+        }
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #FFF5E1;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen p-4 md:p-8">
+        <h1 class="text-4xl md:text-6xl font-bold text-center mb-8 neu-brutal bg-orange-200 p-4 max-w-3xl mx-auto">Daily Divine Mantras</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            <div class="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4">
+                <div id="currentMantra" class="neu-brutal bg-yellow-100 p-6 text-center">
+                    <img id="deityImage" src="https://images.unsplash.com/photo-1609834265704-194d45986a63?q=80&w=500" class="w-48 h-48 object-cover mx-auto rounded-full neu-brutal mb-4" alt="Deity">
+                    <h2 id="currentDeity" class="text-2xl font-bold mb-2">Today's Deity</h2>
+                    <p id="currentDay" class="text-xl mb-4">Current Day</p>
+                    <div class="flex justify-center gap-4">
+                        <button id="playButton" class="neu-brutal bg-green-200 px-6 py-2 text-xl"><i class="bi bi-play-fill"></i></button>
+                        <button id="pauseButton" class="neu-brutal bg-red-200 px-6 py-2 text-xl"><i class="bi bi-pause-fill"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="neu-brutal bg-purple-200 p-4 cursor-pointer" data-day="Sunday" data-deity="Surya">
+                <h3 class="font-bold">Sunday</h3>
+                <p>Surya Mantra</p>
+            </div>
+            <div class="neu-brutal bg-gray-200 p-4 cursor-pointer" data-day="Monday" data-deity="Shiva">
+                <h3 class="font-bold">Monday</h3>
+                <p>Shiva Mantra</p>
+            </div>
+            <div class="neu-brutal bg-red-200 p-4 cursor-pointer" data-day="Tuesday" data-deity="Hanuman">
+                <h3 class="font-bold">Tuesday</h3>
+                <p>Hanuman Mantra</p>
+            </div>
+            <div class="neu-brutal bg-green-200 p-4 cursor-pointer" data-day="Wednesday" data-deity="Krishna">
+                <h3 class="font-bold">Wednesday</h3>
+                <p>Krishna Mantra</p>
+            </div>
+            <div class="neu-brutal bg-yellow-200 p-4 cursor-pointer" data-day="Thursday" data-deity="Vishnu">
+                <h3 class="font-bold">Thursday</h3>
+                <p>Vishnu Mantra</p>
+            </div>
+            <div class="neu-brutal bg-pink-200 p-4 cursor-pointer" data-day="Friday" data-deity="Lakshmi">
+                <h3 class="font-bold">Friday</h3>
+                <p>Lakshmi Mantra</p>
+            </div>
+            <div class="neu-brutal bg-blue-200 p-4 cursor-pointer" data-day="Saturday" data-deity="Shani">
+                <h3 class="font-bold">Saturday</h3>
+                <p>Shani Mantra</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const deityData = {
+            'Sunday': {
+                deity: 'Surya',
+                image: 'https://images.unsplash.com/photo-1507561480393-6a66aa3b4fdd?q=80&w=500',
+                mantra: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+            },
+            'Monday': {
+                deity: 'Shiva',
+                image: 'https://images.unsplash.com/photo-1609834265704-194d45986a63?q=80&w=500',
+                mantra: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
+            },
+            'Tuesday': {
+                deity: 'Hanuman',
+                image: 'https://images.unsplash.com/photo-1518607776093-1a250f613f7f?q=80&w=500',
+                mantra: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            'Wednesday': {
+                deity: 'Krishna',
+                image: 'https://images.unsplash.com/photo-1604608672516-f1b9b1d37076?q=80&w=500',
+                mantra: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'
+            },
+            'Thursday': {
+                deity: 'Vishnu',
+                image: 'https://images.unsplash.com/photo-1617791160505-6f00504e3519?q=80&w=500',
+                mantra: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'
+            },
+            'Friday': {
+                deity: 'Lakshmi',
+                image: 'https://images.unsplash.com/photo-1618334940835-807776c9e914?q=80&w=500',
+                mantra: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3'
+            },
+            'Saturday': {
+                deity: 'Shani',
+                image: 'https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?q=80&w=500',
+                mantra: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3'
+            }
+        };
+
+        let currentSound = null;
+
+        function getDayOfWeek() {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            return days[new Date().getDay()];
+        }
+
+        function updateMantra(day) {
+            const data = deityData[day];
+            document.getElementById('deityImage').src = data.image;
+            document.getElementById('currentDeity').textContent = data.deity;
+            document.getElementById('currentDay').textContent = day;
+
+            if (currentSound) {
+                currentSound.unload();
+            }
+
+            currentSound = new Howl({
+                src: [data.mantra],
+                html5: true
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentDay = getDayOfWeek();
+            updateMantra(currentDay);
+
+            document.querySelectorAll('[data-day]').forEach(element => {
+                element.addEventListener('click', () => {
+                    updateMantra(element.dataset.day);
+                });
+            });
+
+            document.getElementById('playButton').addEventListener('click', () => {
+                if (currentSound) {
+                    currentSound.play();
+                }
+            });
+
+            document.getElementById('pauseButton').addEventListener('click', () => {
+                if (currentSound) {
+                    currentSound.pause();
+                }
+            });
+        });
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
